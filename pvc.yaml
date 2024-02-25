@@ -3,6 +3,9 @@ kind: PersistentVolumeClaim
 metadata:
   name: project2-pvc-xs90
 spec:
+  selector:
+    matchLabels:
+      namespace: xs90
   accessModes:
     - ReadWriteMany
   resources:

@@ -23,7 +23,7 @@ def recommend():
         new_playlist = pd.DataFrame(data['songs'], columns=['track_name'])
         
         # the following code generate the recommendation from the embeddings extracted by matrix factorization
-        track_name_embedding = pd.read_pickle('/data/track_name_embedding.pkl')
+        track_name_embedding = pd.read_pickle('/data/model/track_name_embedding.pkl')
         candidate_track_name = track_name_embedding.index
         
         # it is possible that the track_name in the new playlist is not in the embedding, exclude them
@@ -52,7 +52,7 @@ def recommend():
         top_10_track_name = track_name_embedding.iloc[top_10_idx].index
         
         songs = list(top_10_track_name)
-        last_updated_timestamp = os.path.getmtime('/data/track_name_embedding.pkl')
+        last_updated_timestamp = os.path.getmtime('/data/model/track_name_embedding.pkl')
         model_date = datetime.datetime.fromtimestamp(last_updated_timestamp)
         
         return_data = {

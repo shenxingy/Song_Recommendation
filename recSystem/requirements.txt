@@ -1,6 +1,7 @@
+requests
 pandas
 numpy
 tqdm
---extra-index-url https://download.pytorch.org/whl/cpu
-torch==1.13.1+cpu
 
+torch==1.13.1+cpu
+--extra-index-url https://download.pytorch.org/whl/cpu

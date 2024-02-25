@@ -15,14 +15,14 @@ kubectl describe pvc project2-pvc-xs90
 kubectl delete pvc project2-pvc-xs90
 
 kubectl -n xs90 get pods
-kubectl -n xs90 logs song-recommender-deployment-xs90-7c97fc8fb5-9h6j
-kubectl -n xs90 exec -it song-recommender-deployment-xs90-7455d5578f-5wtbc   -- bash
+kubectl -n xs90 logs song-recommender-deployment-xs90-745869f6b8-27pss 
+kubectl -n xs90 exec -it song-recommender-deployment-xs90-745869f6b8-27pss  -- bash
 
 wget --server-response \
    --output-document response.out \
    --header='Content-Type: application/json' \
    --post-data '{"songs": ["My Boo", "Heart Attack"]}' \
-  http://10.106.190.62:52006/api/recommend
+  http://10.100.36.118:52006/api/recommend
 
 
 docker build -t xs90_serv:0.2 .
@@ -35,7 +35,19 @@ docker build --no-cache -t xs90_cli:0.1 .
 docker tag xs90_cli:0.1 xingyushen/xs90_cli:0.1
 docker push xingyushen/xs90_cli:0.1
 
-docker build -t xs90_rec:0.1 .
-docker build --no-cache -t xs90_rec:0.1 .
-docker tag xs90_rec:0.1 xingyushen/xs90_rec:0.1
-docker push xingyushen/xs90_rec:0.1
+docker build -t xs90_rec:0.2 .
+docker build --no-cache -t xs90_rec:0.2 .
+docker tag xs90_rec:0.2 xingyushen/xs90_rec:0.2
+docker push xingyushen/xs90_rec:0.2
+
+
+argocd login localhost:31443 --username xs90 --password xs90123456 --insecure
+argocd app create song-recommendation \
+      --repo https://github.com/shenxingy/Song_Recommendation.git\
+      --path . \
+      --project $USER-project \
+      --dest-namespace $USER \
+      --dest-server https://kubernetes.default.svc \
+      --sync-policy auto
+
+argocd proj list

@@ -17,14 +17,15 @@ if os.path.exists('/data/model'):
 os.makedirs('/data/model')
 
 # get the dataset url from the environment variable
-dataset_url = os.environ.get('DATASET_URL', 'unknown')
+dataset_url = os.environ.get('DATASET_URL', 'https://homepages.dcc.ufmg.br/~cunha/hosted/cloudcomp-2023s2-datasets/2023_spotify_ds1.csv')
 retry = 0
 while True:
-    playlists = requests.get(dataset_url) 
-    if playlists.status_code == 200:
-        with open('/data/playlists.csv', 'wb') as f:
-            f.write(playlists.content)
+    response = requests.get(dataset_url, verify=False)
+    if response.status_code == 200:
+        with open('/data/2023_spotify_ds1.csv', 'wb') as f:
+            f.write(response.content)
             break
+
     else:
         print('Failed to get the dataset, retrying...{retry}')
         retry += 1
@@ -32,8 +33,8 @@ while True:
             print('Failed to get the dataset after 5 retries')
             sys.exit(1)
         
-# playlists = pd.read_csv('./data/2023_spotify_ds1.csv')
-# playlists = playlists[['pid', 'track_name']]
+playlists = pd.read_csv('/data/2023_spotify_ds1.csv')
+playlists = playlists[['pid', 'track_name']]
 
 # # get the new playlist from user
 # playlist2 = pd.read_csv('./Dataset/2023_spotify_ds2.csv')
@@ -44,7 +45,7 @@ while True:
 # # update the playlist
 # playlists = pd.concat([playlists, new_playlist])
 
-num_epochs = 30
+num_epochs = 10
 learning_rate = 0.01
 batch_size = 128
 n_users = len(playlists.pid.unique())

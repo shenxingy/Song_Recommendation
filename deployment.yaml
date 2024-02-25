@@ -8,7 +8,7 @@ spec:
       restartPolicy: OnFailure
       containers:
       - name: project2-xs90-playlist-recommender
-        image: xingyushen/xs90_rec:0.1
+        image: xingyushen/xs90_rec:0.3
         volumeMounts:
         - mountPath: "/data"
           name: project2-xs90-volume
@@ -21,6 +21,7 @@ spec:
           claimName: project2-pvc-xs90
 
 ---
+
 apiVersion: apps/v1
 kind: Deployment
 metadata:
@@ -39,13 +40,13 @@ spec:
     spec:
       containers:
       - name: song-recommender
-        image: xingyushen/xs90_serv:0.2
+        image: xingyushen/xs90_serv:0.3
         ports:
         - containerPort: 5000
         volumeMounts:
         - mountPath: /data
           name: project2-xs90-volume
       volumes:
-      - name: project2-xs90-volume
+      - name: project2-xs90-volume  # Changed to match the name used in the Job
         persistentVolumeClaim:
-          claimName: project2-pvc-xs90
+          claimName: project2-pvc-xs90  # Changed to match the claim name used in the Job
