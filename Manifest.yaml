@@ -1,0 +1,272 @@
+metadata:
+  creationTimestamp: "2024-02-25T13:50:28Z"
+  generation: 80
+  managedFields:
+  - apiVersion: argoproj.io/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:spec:
+        .: {}
+        f:destination:
+          .: {}
+          f:namespace: {}
+          f:server: {}
+        f:project: {}
+        f:source:
+          .: {}
+          f:path: {}
+          f:repoURL: {}
+        f:syncPolicy:
+          .: {}
+          f:automated:
+            .: {}
+            f:prune: {}
+      f:status:
+        .: {}
+        f:health: {}
+        f:summary: {}
+        f:sync:
+          .: {}
+          f:comparedTo:
+            .: {}
+            f:destination: {}
+            f:source: {}
+    manager: argocd-server
+    operation: Update
+    time: "2024-02-25T14:26:40Z"
+  - apiVersion: argoproj.io/v1alpha1
+    fieldsType: FieldsV1
+    fieldsV1:
+      f:status:
+        f:controllerNamespace: {}
+        f:health:
+          f:status: {}
+        f:history: {}
+        f:operationState:
+          .: {}
+          f:finishedAt: {}
+          f:message: {}
+          f:operation:
+            .: {}
+            f:initiatedBy:
+              .: {}
+              f:automated: {}
+            f:retry:
+              .: {}
+              f:limit: {}
+            f:sync:
+              .: {}
+              f:prune: {}
+              f:revision: {}
+          f:phase: {}
+          f:startedAt: {}
+          f:syncResult:
+            .: {}
+            f:resources: {}
+            f:revision: {}
+            f:source:
+              .: {}
+              f:path: {}
+              f:repoURL: {}
+        f:reconciledAt: {}
+        f:resources: {}
+        f:sourceType: {}
+        f:summary:
+          f:images: {}
+        f:sync:
+          f:comparedTo:
+            f:destination:
+              f:namespace: {}
+              f:server: {}
+            f:source:
+              f:path: {}
+              f:repoURL: {}
+          f:revision: {}
+          f:status: {}
+    manager: argocd-application-controller
+    operation: Update
+    time: "2024-02-25T15:43:17Z"
+  name: song-recommendation
+  namespace: argocd
+  resourceVersion: "3103777"
+  uid: b6f3437f-842b-48c1-94f8-d85b9679e148
+spec:
+  destination:
+    namespace: xs90
+    server: https://kubernetes.default.svc
+  project: xs90-project
+  source:
+    path: .
+    repoURL: https://github.com/shenxingy/Song_Recommendation.git
+  syncPolicy:
+    automated:
+      prune: true
+status:
+  controllerNamespace: argocd
+  health:
+    status: Healthy
+  history:
+  - deployStartedAt: "2024-02-25T13:50:28Z"
+    deployedAt: "2024-02-25T13:50:28Z"
+    id: 0
+    revision: c1e0558a3183f7617987617a4d1ac835d0026b82
+    source:
+      path: .
+      repoURL: https://github.com/shenxingy/Song_Recommendation.git
+  - deployStartedAt: "2024-02-25T14:01:16Z"
+    deployedAt: "2024-02-25T14:01:17Z"
+    id: 1
+    revision: 72bc1acc997e932196b4d534713bd76fa153b3fd
+    source:
+      path: .
+      repoURL: https://github.com/shenxingy/Song_Recommendation.git
+  - deployStartedAt: "2024-02-25T14:25:16Z"
+    deployedAt: "2024-02-25T14:25:17Z"
+    id: 2
+    revision: c30b660f5f52753470020f8bf7ace05db3539806
+    source:
+      path: .
+      repoURL: https://github.com/shenxingy/Song_Recommendation.git
+  - deployStartedAt: "2024-02-25T15:43:17Z"
+    deployedAt: "2024-02-25T15:43:17Z"
+    id: 3
+    revision: 09025c061568e8760ae612c70427ad6f8c504b56
+    source:
+      path: .
+      repoURL: https://github.com/shenxingy/Song_Recommendation.git
+  operationState:
+    finishedAt: "2024-02-25T15:43:17Z"
+    message: successfully synced (all tasks run)
+    operation:
+      initiatedBy:
+        automated: true
+      retry:
+        limit: 5
+      sync:
+        prune: true
+        revision: 09025c061568e8760ae612c70427ad6f8c504b56
+    phase: Succeeded
+    startedAt: "2024-02-25T15:43:17Z"
+    syncResult:
+      resources:
+      - group: ""
+        hookPhase: Running
+        kind: PersistentVolumeClaim
+        message: persistentvolumeclaim/project2-pvc-xs90 configured
+        name: project2-pvc-xs90
+        namespace: xs90
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/project2-client-service-xs90 configured
+        name: project2-client-service-xs90
+        namespace: xs90
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: ""
+        hookPhase: Running
+        kind: Service
+        message: service/song-recommender-service-xs90 configured
+        name: song-recommender-service-xs90
+        namespace: xs90
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        kind: Deployment
+        message: deployment.apps/project2-client-xs90 configured
+        name: project2-client-xs90
+        namespace: xs90
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: apps
+        hookPhase: Running
+        kind: Deployment
+        message: deployment.apps/song-recommender-deployment-xs90 configured
+        name: song-recommender-deployment-xs90
+        namespace: xs90
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      - group: batch
+        hookPhase: Running
+        kind: Job
+        message: job.batch/project2-xs90-job configured
+        name: project2-xs90-job
+        namespace: xs90
+        status: Synced
+        syncPhase: Sync
+        version: v1
+      revision: 09025c061568e8760ae612c70427ad6f8c504b56
+      source:
+        path: .
+        repoURL: https://github.com/shenxingy/Song_Recommendation.git
+  reconciledAt: "2024-02-25T15:43:17Z"
+  resources:
+  - health:
+      status: Healthy
+    kind: PersistentVolumeClaim
+    name: project2-pvc-xs90
+    namespace: xs90
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: project2-client-service-xs90
+    namespace: xs90
+    status: Synced
+    version: v1
+  - health:
+      status: Healthy
+    kind: Service
+    name: song-recommender-service-xs90
+    namespace: xs90
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: project2-client-xs90
+    namespace: xs90
+    status: Synced
+    version: v1
+  - group: apps
+    health:
+      status: Healthy
+    kind: Deployment
+    name: song-recommender-deployment-xs90
+    namespace: xs90
+    status: Synced
+    version: v1
+  - group: batch
+    health:
+      status: Healthy
+    kind: Job
+    name: project2-xs90-job
+    namespace: xs90
+    status: Synced
+    version: v1
+  sourceType: Directory
+  summary:
+    images:
+    - xingyushen/xs90_cli:0.4
+    - xingyushen/xs90_rec:0.3
+    - xingyushen/xs90_serv:0.3
+  sync:
+    comparedTo:
+      destination:
+        namespace: xs90
+        server: https://kubernetes.default.svc
+      source:
+        path: .
+        repoURL: https://github.com/shenxingy/Song_Recommendation.git
+    revision: 09025c061568e8760ae612c70427ad6f8c504b56
+    status: Synced
