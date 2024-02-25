@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: song-recommender-service-xs90
+spec:
+  selector:
+    app: song-recommender
+  ports:
+    - protocol: TCP
+      port: 52006
+      targetPort: 5000
+  type: LoadBalancer

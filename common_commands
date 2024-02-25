@@ -1,0 +1,41 @@
+kubectl -n xs90 apply -f deployment.yaml
+kubectl -n xs90 get deployments
+kubectl delete deploy song-recommender-deployment-xs90
+kubectl -n xs90 describe deployment song-recommender-deployment-xs90
+kubectl -n xs90 describe job project2-xs90-job
+kubectl delete job project2-xs90-job
+
+kubectl -n xs90 apply -f service.yaml
+kubectl -n xs90 get services
+kubectl delete service song-recommender-service-xs90
+
+kubectl -n xs90 apply -f pvc.yaml
+kubectl -n xs90 get pvc
+kubectl describe pvc project2-pvc-xs90
+kubectl delete pvc project2-pvc-xs90
+
+kubectl -n xs90 get pods
+kubectl -n xs90 logs song-recommender-deployment-xs90-7c97fc8fb5-9h6j
+kubectl -n xs90 exec -it song-recommender-deployment-xs90-7455d5578f-5wtbc   -- bash
+
+wget --server-response \
+   --output-document response.out \
+   --header='Content-Type: application/json' \
+   --post-data '{"songs": ["My Boo", "Heart Attack"]}' \
+  http://10.106.190.62:52006/api/recommend
+
+
+docker build -t xs90_serv:0.2 .
+docker build --no-cache -t xs90_serv:0.2 .
+docker tag xs90_serv:0.2 xingyushen/xs90_serv:0.2
+docker push xingyushen/xs90_serv:0.2
+
+docker build -t xs90_cli:0.1 .
+docker build --no-cache -t xs90_cli:0.1 .
+docker tag xs90_cli:0.1 xingyushen/xs90_cli:0.1
+docker push xingyushen/xs90_cli:0.1
+
+docker build -t xs90_rec:0.1 .
+docker build --no-cache -t xs90_rec:0.1 .
+docker tag xs90_rec:0.1 xingyushen/xs90_rec:0.1
+docker push xingyushen/xs90_rec:0.1

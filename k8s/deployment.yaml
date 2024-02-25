@@ -1,0 +1,51 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: project2-xs90-job
+spec:
+  template:
+    spec:
+      restartPolicy: OnFailure
+      containers:
+      - name: project2-xs90-playlist-recommender
+        image: xingyushen/xs90_rec:0.1
+        volumeMounts:
+        - mountPath: "/data"
+          name: project2-xs90-volume
+        env:
+        - name: DATASET_URL
+          value: "https://homepages.dcc.ufmg.br/~cunha/hosted/cloudcomp-2023s2-datasets/2023_spotify_ds1.csv"
+      volumes:
+      - name: project2-xs90-volume
+        persistentVolumeClaim:
+          claimName: project2-pvc-xs90
+
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: song-recommender-deployment-xs90
+  labels:
+    app: song-recommender
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: song-recommender
+  template:
+    metadata:
+      labels:
+        app: song-recommender
+    spec:
+      containers:
+      - name: song-recommender
+        image: xingyushen/xs90_serv:0.2
+        ports:
+        - containerPort: 5000
+        volumeMounts:
+        - mountPath: /data
+          name: project2-xs90-volume
+      volumes:
+      - name: project2-xs90-volume
+        persistentVolumeClaim:
+          claimName: project2-pvc-xs90
