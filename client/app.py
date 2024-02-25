@@ -1,7 +1,10 @@
 from flask import Flask, request, render_template
 import requests
 
-url = 'http://localhost:52006/api/recommend'
+service_name = "song-recommender-service-xs90"
+url = "http://"+service_name+":52006/api/recommend"
+print("URL:", url)
+
 app = Flask(__name__)
 @app.route('/')
 def index():
