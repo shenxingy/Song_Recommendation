@@ -32,7 +32,7 @@ spec:
     spec:
       containers:
       - name: project2-flask-client-xs90
-        image: xingyushen/xs90_cli:0.5
+        image: xingyushen/xs90_cli:0.6
         ports:
         - containerPort: 5000
       imagePullSecrets:
